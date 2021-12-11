@@ -4,11 +4,14 @@ phases:
   install:
     runtime-versions:
       nodejs: 12
+    commands:
+      - curl -sL https://sentry.io/get-cli/ | bash
   pre_build:
     commands:
       - echo Installing source NPM dependencies...
       - npm install
   build:
+    on-failure: ABORT
     commands:
       - echo Build started on `date`
       - echo Compiling the dist folder
@@ -16,6 +19,12 @@ phases:
   post_build:
     commands:
       - echo Build completed on `date`
+      - export VERSION=$(sentry-cli releases propose-version)
+      - echo Sentry Proposed Version ${VERSION}
+      - sentry-cli releases new -p $SENTRY_PROJECT $VERSION
+      - sentry-cli releases set-commits --auto --ignore-missing $VERSION
+      - echo Sentry Release ${VERSION}
+
 # Include only the files required for your application to run.
 artifacts:
   files:

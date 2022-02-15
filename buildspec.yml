@@ -4,8 +4,6 @@ phases:
   install:
     runtime-versions:
       nodejs: 12
-    commands:
-      - curl -sL https://sentry.io/get-cli/ | bash
   pre_build:
     commands:
       - echo Installing source NPM dependencies...
@@ -16,6 +14,7 @@ phases:
       - echo Build started on `date`
       - echo Compiling the dist folder
       - npm run build
+      - sentry-cli releases new -p hello value
   post_build:
     commands:
       - echo Build completed on `date`

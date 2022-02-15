@@ -15,15 +15,10 @@ phases:
     commands:
       - echo Build started on `date`
       - echo Compiling the dist folder
-      - export commithash=$(git rev-parse HEAD)
-      - sed -i "s~legalatoms-ui@\${packageInfo.version}~$commithash~g" note.txt
-      - cat note.txt
-      # - npm run build
+      - npm run build
   post_build:
     commands:
       - echo Build completed on `date`
-      - ./sentry.sh
-      - ./rollbar.sh
 
 # Include only the files required for your application to run.
 artifacts:

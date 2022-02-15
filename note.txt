@@ -1,1 +1,1 @@
-release: `legalatoms-ui@${packageInfo.version}`,
+release: `legalatoms-ui@25adaf0ff776d06a4682a13ffa415d7b673f69da`,
